@@ -1,0 +1,11 @@
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
+<% if current_user %>
+  <%= link_to 'Logout', logout_path, method: :delete %><br>
+<% else %>
+  <%= link_to 'Login', sign_in_path %><br>
+<% end %>
+
+<%= link_to "Users", users_path %><br>
+<%= link_to "Chatrooms", chatrooms_path %>
