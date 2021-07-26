@@ -5,8 +5,7 @@
   <%= @chatroom.name %>
 </p>
 
-<%= render 'messages/form', locals: { user_id: @user.id,
- chatroom_id: @chatroom.id } %>
+<%= render 'messages/form' %>
 
 <%= link_to 'Edit', edit_chatroom_path(@chatroom) %> |
 <%= link_to 'Back', chatrooms_path %>

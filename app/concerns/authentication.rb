@@ -2,6 +2,7 @@ module Authentication
   extend ActiveSupport::Concern
 
   included do
+    helper_method :current_user
     before_action :ensure_authenticated_user
   end
 
@@ -12,14 +13,16 @@ module Authentication
   end
 
   def authenticate_user(user_id)
-    if authenticated_user = User.find_by(id: user_id)
-      session[:user_id] ||= user_id
-      @current_user = authenticated_user
-    end
+    session[:user_id] ||= user_id
+    @current_user = User.find_by_id(user_id)
   end
 
   def unauthenticate_user
-    @current_user = nil
     session[:user_id] = nil
+    @current_user = nil
+  end
+
+  def current_user
+    @current_user ||= session[:user_id]
   end
 end
