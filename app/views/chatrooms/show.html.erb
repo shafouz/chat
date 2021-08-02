@@ -1,10 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @chatroom.name %>
+<strong>Name:</strong>
+<%= @chatroom.name %>
 </p>
 
+<hr>
+<% @chatroom.messages.each do |message| %>
+  <%= message.text %><br>
+<% end %>
+
+<br>
 <%= render 'messages/form' %>
 
 <%= link_to 'Edit', edit_chatroom_path(@chatroom) %> |

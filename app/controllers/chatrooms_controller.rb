@@ -8,7 +8,7 @@ class ChatroomsController < ApplicationController
 
   # GET /chatrooms/1 or /chatrooms/1.json
   def show
-    @user = User.first
+    @message = Message.new
   end
 
   # GET /chatrooms/new

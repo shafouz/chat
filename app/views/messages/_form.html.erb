@@ -1,6 +1,5 @@
-<%= form_with(model: @message, url: messages_create_path) do |form| %>
+<%= form_with model: [@chatroom, Message.new] do |form| %>
   <div class="field">
-    <%= form.label :text %>
     <%= form.text_field :text %>
   </div>
 

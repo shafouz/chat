@@ -1,18 +1,20 @@
 class MessagesController < ApplicationController
-  def new
-    @user = current_user
-    @chatroom = params[:chatroom_id]
-    @message = Message.new(user_id: @user, chatroom_id: @chatroom)
-  end
+  before_action :set_chatroom
 
   def create
-    @message = Message.create(message_params)
+    message = @chatroom.messages.new(message_params)
+    message.user = current_user
+    message.save
+    redirect_to @chatroom
   end
 
   private
 
-  def message_params
-    params.require(:message).permit(:text, message_attributes: [:user_id, :chatroom_id])
+  def set_chatroom
+    @chatroom = Chatroom.find(params[:chatroom_id])
   end
 
+  def message_params
+    params.require(:message).permit(:text)
+  end
 end
