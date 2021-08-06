@@ -1,17 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-<strong>Name:</strong>
-<%= @chatroom.name %>
-</p>
+<div data-controller='chatroom' data-chatroom-id='<%= @chatroom.id %>'>
+  <p>
+  <strong>Name:</strong>
+  <%= @chatroom.name %>
+  </p>
 
-<hr>
-<% @chatroom.messages.each do |message| %>
-  <%= message.text %><br>
-<% end %>
+  <hr>
+  <div data-chatroom-target="messages">
+    <% @chatroom.messages.each do |message| %>
+    <% end %>
+  </div>
 
-<br>
-<%= render 'messages/form' %>
+  <br>
+  <%= form_with model: [@chatroom, Message.new] do |form| %>
+    <div class="field">
+      <%= form.text_field :text %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>
 
 <%= link_to 'Edit', edit_chatroom_path(@chatroom) %> |
 <%= link_to 'Back', chatrooms_path %>

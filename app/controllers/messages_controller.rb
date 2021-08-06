@@ -2,10 +2,8 @@ class MessagesController < ApplicationController
   before_action :set_chatroom
 
   def create
-    message = @chatroom.messages.new(message_params)
-    message.user = current_user
-    message.save
-    redirect_to @chatroom
+    message = @chatroom.messages.create(message_params)
+    ChatroomChannel.broadcast_to @chatroom, message: render_to_string(message)
   end
 
   private
@@ -15,6 +13,6 @@ class MessagesController < ApplicationController
   end
 
   def message_params
-    params.require(:message).permit(:text)
+    params.require(:message).permit(:text).merge(user: current_user)
   end
 end

@@ -50,7 +50,7 @@ class ChatroomsController < ApplicationController
 
   # DELETE /chatrooms/1 or /chatrooms/1.json
   def destroy
-    @chatroom.destroy
+    raise 'Add a soft delete method'
     respond_to do |format|
       format.html { redirect_to chatrooms_url, notice: "Chatroom was successfully destroyed." }
       format.json { head :no_content }

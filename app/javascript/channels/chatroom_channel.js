@@ -1,3 +1,4 @@
+/*
 import consumer from "./consumer"
 
 consumer.subscriptions.create("ChatroomChannel", {
@@ -16,3 +17,4 @@ consumer.subscriptions.create("ChatroomChannel", {
     // Called when there's incoming data on the websocket for this channel
   }
 });
+*/
