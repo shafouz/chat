@@ -2,7 +2,7 @@
 <p class="alert"><%= alert %></p>
 
 <% if current_user %>
-  <%= link_to 'Logout', logout_path, method: :delete %><br>
+  <%= link_to 'Logout', logout_path %><br>
 <% else %>
   <%= link_to 'Login', sign_in_path %><br>
 <% end %>

@@ -17,8 +17,11 @@ export default class extends Controller {
 
   disconnect() {
     consumer.subscriptions.remove(this.subscription)
-
     console.log('bye')
+  }
+
+  reset_form() {
+    document.getElementById('message_text').value = ''
   }
 
   //
@@ -26,6 +29,6 @@ export default class extends Controller {
   }
   _disconnected(){}
   _received(data){
-    this.messagesTarget.append(data.message)
+    this.messagesTarget.insertAdjacentHTML('beforeend', data.message)
   }
 }
