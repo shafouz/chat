@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy', as: 'logout'
 
   resources :chatrooms do
-    post 'messages/create', as: 'messages'
+    resources :messages
   end
 
   resources :users
