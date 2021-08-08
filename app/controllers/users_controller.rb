@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  skip_before_action :ensure_authenticated_user, only: %i[ new create]
-  before_action :set_user, only: %i[ show edit update destroy ]
+  skip_before_action :ensure_authenticated_user, only: %i[new create]
+  before_action :set_user, only: %i[show edit update destroy]
 
   # GET /users or /users.json
   def index

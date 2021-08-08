@@ -2,7 +2,6 @@ module Authentication
   extend ActiveSupport::Concern
 
   included do
-    helper_method :current_user
     before_action :ensure_authenticated_user
   end
 
