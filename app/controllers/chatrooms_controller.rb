@@ -9,6 +9,11 @@ class ChatroomsController < ApplicationController
   # GET /chatrooms/1 or /chatrooms/1.json
   def show
     @message = Message.new
+
+    if @chatroom.chatroom_users.where(user: current_user).blank?
+      @chatroom.chatroom_users.where(user: current_user).create
+      ChatroomChannel.broadcast_to @chatroom.id, user: current_user.name
+    end
   end
 
   # GET /chatrooms/new
@@ -58,13 +63,13 @@ class ChatroomsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_chatroom
-      @chatroom = Chatroom.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_chatroom
+    @chatroom = Chatroom.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def chatroom_params
-      params.require(:chatroom).permit(:name)
-    end
+  # Only allow a list of trusted parameters through.
+  def chatroom_params
+    params.require(:chatroom).permit(:name)
+  end
 end

@@ -1,21 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<div data-controller='chatroom' data-chatroom-id='<%= @chatroom.id %>'>
-  <p>
-  <strong>Name:</strong>
-  <%= @chatroom.name %>
-  </p>
+<div data-controller="chatroom" data-chatroom-id="<%= @chatroom.id %>">
+  <div class="chatroom-wrapper">
+    <div class="chatroom">
+      <p>
+      <strong>Name:</strong>
+      <%= @chatroom.name %>
+      </p>
 
-  <hr>
-  <div data-chatroom-target="messages">
-    <%= render @chatroom.messages %>
+      <hr>
+      <div data-chatroom-target="messages">
+        <%= render @chatroom.messages %>
+      </div>
+
+      <br>
+      <%= form_with model: [@chatroom, Message.new], data: { action: "turbo:submit-end->chatroom#reset_form" } do |form| %>
+        <%= form.text_field :text %>
+      <% end %>
+    </div>
+    <div data-chatroom-target="users" class="users">
+      <%= render partial: 'users/user', collection: @chatroom.chatroom_users.uniq %>
+    </div>
   </div>
-
-  <br>
-  <%= form_with model: [@chatroom, Message.new], data: { action: "turbo:submit-end->chatroom#reset_form" } do |form| %>
-    <%= form.text_field :text %>
-  <% end %>
 </div>
 
-<%= link_to 'Edit', edit_chatroom_path(@chatroom) %> |
-<%= link_to 'Back', chatrooms_path %>
+<%= link_to "Edit", edit_chatroom_path(@chatroom) %> |
+<%= link_to "Back", chatrooms_path %>
