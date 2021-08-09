@@ -3,7 +3,21 @@ module ApplicationCable
     identified_by :current_user
 
     def connect
-      current_user
+      self.current_user = find_verified_user
+    end
+
+    private
+
+    def find_verified_user
+      if current_user = User.find_by_id(session[:user_id])
+        current_user
+      else
+        reject_unauthorized_connection
+      end
+    end
+
+    def session
+      @request.session
     end
   end
 end

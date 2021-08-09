@@ -17,7 +17,7 @@ export default class extends Controller {
   }
 
   disconnect() {
-    this.subscription.perform('set_offline', { id: this.data.get('id')} )
+    //this.subscription.perform('set_offline', { id: this.data.get('id')} )
     consumer.subscriptions.remove(this.subscription)
     console.log('bye')
   }
@@ -38,6 +38,9 @@ export default class extends Controller {
 
     if ('user' in data) {
       this.usersTarget.insertAdjacentHTML('beforeend', data.user)
+    }
+
+    if ('user_status' in data) {
     }
   }
 }
