@@ -12,7 +12,7 @@ export default class extends Controller {
         disconnected: this._disconnected.bind(this),
         received: this._received.bind(this)
       }) 
-    this.subscription.perform('set_online')
+    //this.subscription.perform('set_online')
     console.log('hello')
   }
 
@@ -40,7 +40,12 @@ export default class extends Controller {
       this.usersTarget.insertAdjacentHTML('beforeend', data.user)
     }
 
-    if ('user_status' in data) {
+    if ('status' in data) {
+      if (data.status.status == false) {
+        document.getElementById(data.status.user).style.color = 'red'
+      } else {
+        document.getElementById(data.status.user).style.color = 'green'
+      }
     }
   }
 }
