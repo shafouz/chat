@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2021_08_08_175016) do
   enable_extension "plpgsql"
 
   create_table "chatroom_users", force: :cascade do |t|
+    t.boolean "status", default: false
     t.bigint "user_id", null: false
     t.bigint "chatroom_id", null: false
     t.datetime "created_at", precision: 6, null: false

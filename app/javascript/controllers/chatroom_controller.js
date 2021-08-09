@@ -12,10 +12,12 @@ export default class extends Controller {
         disconnected: this._disconnected.bind(this),
         received: this._received.bind(this)
       }) 
+    this.subscription.perform('set_online')
     console.log('hello')
   }
 
   disconnect() {
+    this.subscription.perform('set_offline', { id: this.data.get('id')} )
     consumer.subscriptions.remove(this.subscription)
     console.log('bye')
   }
