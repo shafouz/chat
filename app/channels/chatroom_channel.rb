@@ -1,30 +1,27 @@
 class ChatroomChannel < ApplicationCable::Channel
-  # maybe change online/offline to a job
   def subscribed
-    stop_all_streams
     stream_from "chatroom:#{chatroom}"
-    set_online
+    set_online_or_create
   end
 
   def unsubscribed
     set_offline
-    stop_all_streams
   end
 
-  def set_online
-    broadcast_to chatroom, status: { user: ActionView::RecordIdentifier.dom_id(chatroom_user), status: true }
-    SetStatusJob.perform_now(chatroom_user.id, true)
+  def set_online_or_create
+    SetStatusJob.perform_now(chatroom_user, true)
   end
 
   def set_offline
-    broadcast_to chatroom, status: { user: ActionView::RecordIdentifier.dom_id(chatroom_user), status: false }
-    SetStatusJob.perform_now(chatroom_user.id, false)
+    SetStatusJob.perform_now(chatroom_user, false)
   end
 
   private
 
   def chatroom_user
-    @chatroom_user = Chatroom.find_by_id(params[:chatroom]).chatroom_users.where(user_id: current_user)[0]
+    @chatroom_user = Chatroom.find_by_id(params[:chatroom])
+      .chatroom_users
+      .where(user_id: current_user).first_or_create
   end
 
   def chatroom

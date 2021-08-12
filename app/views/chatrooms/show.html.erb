@@ -21,6 +21,7 @@
       <br>
       <%= form_with model: [@chatroom, Message.new], data: { action: "turbo:submit-end->chatroom#reset_form" } do |form| %>
         <%= form.text_field :text %>
+        <%= form.submit %>
       <% end %>
     </div>
     <div data-chatroom-target="users" class="users">

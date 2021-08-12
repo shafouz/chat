@@ -9,11 +9,6 @@ class ChatroomsController < ApplicationController
   # GET /chatrooms/1 or /chatrooms/1.json
   def show
     @message = Message.new
-
-    if @chatroom.chatroom_users.where(user: current_user).blank?
-      @chatroom.chatroom_users.where(user: current_user).create
-      ChatroomChannel.broadcast_to @chatroom.id, user: current_user.name
-    end
   end
 
   # GET /chatrooms/new

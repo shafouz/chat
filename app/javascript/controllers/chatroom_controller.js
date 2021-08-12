@@ -6,7 +6,6 @@ export default class extends Controller {
   static targets = [ "messages", "users" ]
 
   initialize() {
-    console.log('init-non')
     this.subscription = consumer.subscriptions.create(
       { channel: "ChatroomChannel", chatroom: this.data.get('id') }, {
         connected: this._connected.bind(this),
@@ -34,19 +33,25 @@ export default class extends Controller {
   }
 
   _received(data){
+    // message
     if ('message' in data) {
-      this.messagesTarget.insertAdjacentHTML('beforeend', data.message)
+      return this.messagesTarget.insertAdjacentHTML('beforeend', data.message)
     }
 
-    if ('user' in data) {
-      this.usersTarget.insertAdjacentHTML('beforeend', data.user)
+    // chatroom
+    if ('username' in data.chatroom) {
+      // checks if user already appended
+      let username = document.getElementById(data.chatroom.user)
+      if (!!!username) {
+        this.usersTarget.insertAdjacentHTML('beforeend', data.chatroom.username)
+      }
     }
 
-    if ('status' in data) {
-      if (data.status.status == false) {
-        document.getElementById(data.status.user).style.color = 'black'
+    if ('status' in data.chatroom) {
+      if (data.chatroom.status == false) {
+        document.getElementById(data.chatroom.user).style.color = 'black'
       } else {
-        document.getElementById(data.status.user).style.color = 'green'
+        document.getElementById(data.chatroom.user).style.color = 'green'
       }
     }
   }

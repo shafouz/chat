@@ -3,7 +3,13 @@ require "application_system_test_case"
 class StimulusChatroomControllersTest < ApplicationSystemTestCase
   def setup
     User.create(name: 'abc', email: 'abc@abc.com', password: 'secret')
-    Chatroom.create(name: 'chat1')
+  end
+
+  def teardown
+    ChatroomUser.delete_all
+    Message.delete_all
+    Chatroom.delete_all
+    User.delete_all
   end
 
   test "visiting chatroom 1" do
@@ -19,5 +25,13 @@ class StimulusChatroomControllersTest < ApplicationSystemTestCase
     click_on('commit')
     assert true, page.has_content?('chat1')
     assert true, page.has_content?('abc')
+
+    fill_in('message[text]', with: 'hello')
+    click_on('commit')
+    assert true, page.has_content?('hello')
+
+    fill_in('message[text]', with: 'testing')
+    click_on('commit')
+    assert true, page.has_content?('testing')
   end
 end
