@@ -1,8 +1,13 @@
+<%= content_for :head do %>
+  <meta name="turbo-cache-control" content="no-preview">
+<% end %>
+
 <p id="notice"><%= notice %></p>
 
-<div data-controller="chatroom" data-chatroom-id="<%= @chatroom.id %>">
+<div id="<%= dom_id(@chatroom) %>" data-controller="chatroom" data-chatroom-id="<%= @chatroom.id %>">
   <div class="chatroom-wrapper">
     <div class="chatroom">
+      <button data-action="chatroom#act">act</button>
       <p>
       <strong>Name:</strong>
       <%= @chatroom.name %>

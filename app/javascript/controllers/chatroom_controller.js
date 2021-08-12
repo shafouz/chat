@@ -6,20 +6,20 @@ export default class extends Controller {
   static targets = [ "messages", "users" ]
 
   initialize() {
+    console.log('init-non')
     this.subscription = consumer.subscriptions.create(
       { channel: "ChatroomChannel", chatroom: this.data.get('id') }, {
         connected: this._connected.bind(this),
         disconnected: this._disconnected.bind(this),
         received: this._received.bind(this)
       }) 
-    //this.subscription.perform('set_online')
-    console.log('hello')
+  }
+
+  connect() {
   }
 
   disconnect() {
-    //this.subscription.perform('set_offline', { id: this.data.get('id')} )
     consumer.subscriptions.remove(this.subscription)
-    console.log('bye')
   }
 
   reset_form() {
@@ -29,7 +29,9 @@ export default class extends Controller {
   //
   _connected(){
   }
-  _disconnected(){}
+
+  _disconnected(){
+  }
 
   _received(data){
     if ('message' in data) {
@@ -42,7 +44,7 @@ export default class extends Controller {
 
     if ('status' in data) {
       if (data.status.status == false) {
-        document.getElementById(data.status.user).style.color = 'red'
+        document.getElementById(data.status.user).style.color = 'black'
       } else {
         document.getElementById(data.status.user).style.color = 'green'
       }
