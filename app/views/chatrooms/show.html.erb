@@ -25,7 +25,7 @@
       <% end %>
     </div>
     <div data-chatroom-target="users" class="users">
-      <%= render partial: 'users/user', collection: @chatroom.chatroom_users.uniq %>
+      <%= render partial: 'chatrooms/chatroom_user', collection: @chatroom.chatroom_users.uniq %>
     </div>
   </div>
 </div>

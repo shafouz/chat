@@ -41,8 +41,8 @@ export default class extends Controller {
     // chatroom
     if ('username' in data.chatroom) {
       // checks if user already appended
-      let username = document.getElementById(data.chatroom.user)
-      if (!!!username) {
+      let user = document.getElementById(data.chatroom.user)
+      if (!!!user) {
         this.usersTarget.insertAdjacentHTML('beforeend', data.chatroom.username)
       }
     }

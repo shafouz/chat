@@ -5,7 +5,8 @@ class SetStatusJob < ApplicationJob
     if status == true
       chatroom_user.update(status: true)
       ChatroomChannel.broadcast_to chatroom_user.chatroom.id, chatroom:
-        { username: chatroom_user.user.name,
+        { username: ApplicationController.renderer.render_to_string(partial: 'chatrooms/chatroom_user',
+                                                                    locals: { chatroom_user: chatroom_user }),
           user: ActionView::RecordIdentifier.dom_id(chatroom_user),
           status: true }
     else
