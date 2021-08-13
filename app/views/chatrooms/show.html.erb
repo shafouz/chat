@@ -4,7 +4,7 @@
 
 <p id="notice"><%= notice %></p>
 
-<div id="<%= dom_id(@chatroom) %>" data-controller="chatroom" data-chatroom-id="<%= @chatroom.id %>">
+<div id="<%= dom_id(@chatroom) %>" data-controller='message chatroom' data-chatroom-id="<%= @chatroom.id %>">
   <div class="chatroom-wrapper">
     <div class="chatroom">
       <button data-action="chatroom#act">act</button>
@@ -14,12 +14,12 @@
       </p>
 
       <hr>
-      <div data-chatroom-target="messages">
+      <div data-message-target="messages">
         <%= render @chatroom.messages %>
       </div>
 
       <br>
-      <%= form_with model: [@chatroom, Message.new], data: { action: "turbo:submit-end->chatroom#reset_form" } do |form| %>
+      <%= form_with model: [@chatroom, Message.new], data: { action: "turbo:submit-end->message#reset_form" } do |form| %>
         <%= form.text_field :text %>
         <%= form.submit %>
       <% end %>

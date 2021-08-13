@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
 
   def create
     message = @chatroom.messages.create(message_params)
-    ChatroomChannel.broadcast_to @chatroom.id, message: render_to_string(message)
+    MessageChannel.broadcast_to @chatroom.id, message: render_to_string(message)
   end
 
   private

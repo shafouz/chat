@@ -3,7 +3,7 @@ import consumer from "../channels/consumer"
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ "messages", "users" ]
+  static targets = [ "users" ]
 
   initialize() {
     this.subscription = consumer.subscriptions.create(
@@ -21,11 +21,6 @@ export default class extends Controller {
     consumer.subscriptions.remove(this.subscription)
   }
 
-  reset_form() {
-    document.getElementById('message_text').value = ''
-  }
-
-  //
   _connected(){
   }
 
@@ -33,15 +28,8 @@ export default class extends Controller {
   }
 
   _received(data){
-    // message
-    if ('message' in data) {
-      return this.messagesTarget.insertAdjacentHTML('beforeend', data.message)
-    }
-
-    // chatroom
     if ('username' in data.chatroom) {
-      // checks if user already appended
-      let user = document.getElementById(data.chatroom.user)
+      let user = document.getElementById(data.chatroom.userId)
       if (!!!user) {
         this.usersTarget.insertAdjacentHTML('beforeend', data.chatroom.username)
       }
@@ -49,9 +37,9 @@ export default class extends Controller {
 
     if ('status' in data.chatroom) {
       if (data.chatroom.status == false) {
-        document.getElementById(data.chatroom.user).style.color = 'black'
+        document.getElementById(data.chatroom.userId).style.color = 'black'
       } else {
-        document.getElementById(data.chatroom.user).style.color = 'green'
+        document.getElementById(data.chatroom.userId).style.color = 'green'
       }
     }
   }
